@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinayagar Seettu</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f2f2f2;
+    margin:0;
+}
+header{
+    background:#ff6f00;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+.container{
+    padding:15px;
+}
+.card{
+    background:white;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#2196F3;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+button:hover{
+    background:#1976D2;
+}
+#details{
+    display:none;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:center;
+}
+th{
+    background:#4CAF50;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>🛕 Vinayagar Seettu</h2>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h3>Members</h3>
+
+<button onclick="showMember('Selva')">Selva</button><br><br>
+<button onclick="showMember('Saravanan')">Saravanan</button><br><br>
+<button onclick="showMember('Maheshkumar')">Maheshkumar</button><br><br>
+<button onclick="showMember('Saravanan Abi')">Saravanan Abi</button><br><br>
+<button onclick="showMember('Sathishkumar')">Sathishkumar</button>
+
+</div>
+
+<div id="details" class="card">
+<h3 id="memberName"></h3>
+
+<p><b>Mobile:</b> <span id="mobile"></span></p>
+<p><b>Total Paid:</b> ₹<span id="total"></span></p>
+
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="history">
+  </tbody>
+</table>
+
+<br>
+<button onclick="back()">⬅ Back</button>
+
+</div>
+
+</div>
+
+<script>
+
+const data={
+
+"Selva":{
+mobile:"9345884883",
+total:100,
+history:[
+["15/09/2026","100","Paid"]
+]
+},
+
+"Saravanan":{
+mobile:"9381187901",
+total:100,
+history:[
+["15/09/2026","100","Paid"]
+]
+},
+
+"Maheshkumar":{
+mobile:"8825842408",
+total:100,
+history:[
+["15/09/2026","100","Paid"]
+]
+},
+
+"Saravanan Abi":{
+mobile:"6382964906",
+total:100,
+history:[
+["15/09/2026","100","Paid"]
+]
+},
+
+"Sathishkumar":{
+mobile:"8526721579",
+total:100,
+history:[
+["15/09/2026","100","Paid"]
+]
+};
+
+function showMember(name){
+
+document.querySelector(".card").style.display="none";
+document.getElementById("details").style.display="block";
+
+document.getElementById("memberName").innerHTML=name;
+document.getElementById("mobile").innerHTML=data[name].mobile;
+document.getElementById("total").innerHTML=data[name].total;
+
+let rows="";
+
+data[name].history.forEach(x=>{
+rows+=`
+<tr>
+<td>${x[0]}</td>
+<td>₹${x[1]}</td>
+<td>${x[2]}</td>
+</tr>`;
+});
+
+document.getElementById("history").innerHTML=rows;
+
+}
+  function back(){
+
+document.querySelector(".card").style.display="block";
+document.getElementById("details").style.display="none";
+
+}
+
+</script>
+
+</body>
+</html>
