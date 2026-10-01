@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinayagar Seettu</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f2f2f2;
+    margin:0;
+}
+header{
+    background:#ff6f00;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+.container{
+    padding:15px;
+}
+.card{
+    background:white;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#2196F3;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+button:hover{
+    background:#1976D2;
+}
+#details{
+    display:none;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:center;
+}
+th{
+    background:#4CAF50;
+    color:white;
+}
+</style>
+<style>
+.paid-btn{border:0;border-radius:8px;padding:8px 12px;background:#4caf50;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.paid-btn:active{transform:scale(.98)}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>🛕 Vinayagar Seettu</h2>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h3>Members</h3>
+
+<div style="margin:10px 0 20px;padding:14px;border-bottom:1px solid #ddd;font-size:17px;">
+<div style="display:flex;justify-content:space-between;padding:7px 0;"><b>Amount Holder:</b><span>Ranjith</span></div>
+<div style="display:flex;justify-content:space-between;padding:7px 0;"><b>Total Amount:</b><span>₹1700</span></div>
+</div>
+
+<button onclick="showMember('Selva')">Selva</button><br><br>
+<button onclick="showMember('Saravanan')">Saravanan</button><br><br>
+<button onclick="showMember('Maheshkumar')">Maheshkumar</button><br><br>
+<button onclick="showMember('Saravanan Abi')">Saravanan Abi</button><br><br>
+<button onclick="showMember('Sathishkumar')">Sathishkumar</button><br><br>
+<button onclick="showMember('Ayyanar')">Ayyanar</button><br><br>
+<button onclick="showMember('Dinesh')">Dinesh</button><br><br>
+<button onclick="showMember('Kesavan')">Kesavan</button><br><br>
+<button onclick="showMember('Kumaresan')">Kumaresan</button><br><br>
+<button onclick="showMember('Boopathi')">Boopathi</button><br><br>
+<button onclick="showMember('Soundhar')">Soundhar</button><br><br>
+<button onclick="showMember('Venkatesan')">Venkatesan</button><br><br>
+<button onclick="showMember('Kamal')">Kamal</button><br><br>
+<button onclick="showMember('Jayabalaji')">Jayabalaji</button><br><br>
+
+</div>
+
+<div id="details" class="card">
+<h3 id="memberName"></h3>
+
+<p><b>Mobile:</b> <span id="mobile"></span></p>
+<p><b>Total Paid:</b> ₹<span id="total"></span></p>
+
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="history">
+  </tbody>
+</table>
+
+<br>
+<button onclick="back()">⬅ Back</button>
+
+</div>
+
+</div>
+
+<script>
+
+const data={
+
+"Selva":{
+mobile:"9345884883",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Saravanan":{
+mobile:"9381187901",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Maheshkumar":{
+mobile:"8825842408",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Saravanan Abi":{
+mobile:"6382964906",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Sathishkumar":{
+mobile:"8526721579",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Ayyanar":{
+mobile:"8870513920",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Dinesh":{
+mobile:"8015161745",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Kesavan":{
+mobile:"9884201109",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Kumaresan":{
+mobile:"9994528084",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Boopathi":{
+mobile:"9688687044",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Soundhar":{
+mobile:"9345241769",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Venkatesan":{
+mobile:"8667584133",
+total:400,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Paid"],
+["15/11/2026","100","Paid"],
+["15/12/2026","100","Paid"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Kamal":{
+mobile:"8754864353",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+},
+
+"Jayabalaji":{
+mobile:"9751197612",
+total:100,
+history:[
+["15/09/2026","100","Paid"],
+["15/10/2026","100","Loading"],
+["15/11/2026","100","Loading"],
+["15/12/2026","100","Loading"],
+["15/01/2027","100","Loading"],
+["15/02/2027","100","Loading"],
+["15/03/2027","100","Loading"],
+["15/04/2027","100","Loading"],
+["15/05/2027","100","Loading"],
+["15/06/2027","100","Loading"],
+["15/07/2027","100","Loading"],
+["15/08/2027","100","Loading"]
+]
+}
+};
+
+function showMember(name){
+
+document.querySelector(".card").style.display="none";
+document.getElementById("details").style.display="block";
+
+document.getElementById("memberName").innerHTML=name;
+document.getElementById("mobile").innerHTML=data[name].mobile.replace(/(\d{5})(\d{5})/, "$1 $2");
+document.getElementById("total").innerHTML=data[name].total;
+
+let rows="";
+
+data[name].history.forEach(x=>{
+let status = x[2] === "Paid"
+  ? `<button class="paid-btn" onclick="openBill('${name}','${x[0]}','${x[1]}')">Paid 🧾 Bill</button>`
+  : x[2];
+
+rows+=`
+<tr>
+<td>${x[0]}</td>
+<td>₹${x[1]}</td>
+<td>${status}</td>
+</tr>`;
+});
+
+document.getElementById("history").innerHTML=rows;
+
+}
+  function back(){
+
+document.querySelector(".card").style.display="block";
+document.getElementById("details").style.display="none";
+
+}
+
+
+function openBill(name, date, amount){
+  const mobile = data[name].mobile.replace(/(\d{5})(\d{5})/, "$1 $2");
+  const billNo = "VS-" + date.replace(/\//g,"") + "-" +
+                 name.replace(/\s+/g,"").slice(0,6).toUpperCase();
+
+  const paymentMethod = {
+  "Saravanan Abi":"Cash",
+  "Ayyanar":"Cash",
+  "Kumaresan":"Cash",
+  "Kamal":"Cash"
+}[name] || "Online";
+
+  const bill = `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vinayagar Seettu - Bill</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f2f2f2;margin:0;padding:20px}
+.bill{max-width:500px;margin:auto;background:#fff;padding:24px;border-radius:16px;box-shadow:0 2px 10px #bbb}
+h1{text-align:center;color:#ff6f00;margin:0 0 8px}
+h2{text-align:center;margin:0 0 22px;font-size:20px}
+.row{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid #ddd}
+.total{font-size:21px;font-weight:bold;text-align:right;margin-top:18px}
+.print{display:block;width:100%;box-sizing:border-box;border:0;border-radius:10px;padding:13px;margin-top:22px;background:#2196f3;color:white;font-size:17px}
+@media print{body{background:white;padding:0}.bill{box-shadow:none}.print{display:none}}
+</style>
+</head>
+<body>
+<div class="bill">
+<h1>🏛️ Vinayagar Seettu</h1>
+<h2>Payment Receipt</h2>
+<div class="row"><b>Member</b><span>${name}</span></div>
+<div class="row"><b>Mobile</b><span>${mobile}</span></div>
+<div class="row"><b>Date</b><span>${date}</span></div>
+<div class="row"><b>Amount</b><span>₹${amount}</span></div>
+<div class="row"><b>Payment Method</b><span>${paymentMethod}</span></div>
+<div class="row"><b>Payment Receiver</b><span>RanjithKumar</span></div>
+<div class="row"><b>Status</b><span>Paid</span></div>
+<div class="row"><b>Bill No.</b><span>${billNo}</span></div>
+<div class="total">Paid: ₹${amount}</div>
+<button class="print" onclick="window.print()">🧾 Print / Save as PDF</button>
+</div>
+</body>
+</html>`;
+
+  const win = window.open("", "_blank");
+  if(!win){
+    alert("Please allow pop-ups for this website, then tap Paid 🧾 Bill again.");
+    return;
+  }
+  win.document.open();
+  win.document.write(bill);
+  win.document.close();
+}
+</script>
+
+</body>
+</html>
