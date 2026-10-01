@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Login - Vinayagar Seettu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h2>🛕 Vinayagar Seettu</h2></header>
+<main class="container">
+  <section class="card narrow">
+    <h2>🔐 Admin Login</h2>
+    <form id="loginForm">
+      <label>Username</label>
+      <input name="username" required>
+      <label>Password</label>
+      <input name="password" type="password" required>
+      <button>Login</button>
+    </form>
+    <p id="msg" class="error"></p>
+  </section>
+</main>
+<script>
+loginForm.onsubmit = async e => {
+  e.preventDefault();
+  const body = Object.fromEntries(new FormData(loginForm));
+  const r = await fetch("/api/admin/login", {
+    method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)
+  });
+  const data = await r.json();
+  if (r.ok) location.href = "/admin.html";
+  else msg.textContent = data.error || "Login failed";
+};
+</script>
+</body>
+</html>

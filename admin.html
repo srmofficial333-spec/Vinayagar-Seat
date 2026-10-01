@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin - Vinayagar Seettu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h2>🛕 Vinayagar Seettu - Admin</h2></header>
+<main class="container">
+  <section class="card">
+    <div class="topbar">
+      <h2>Members</h2>
+      <button class="small" onclick="logout()">Logout</button>
+    </div>
+    <div id="members"></div>
+  </section>
+
+  <section id="panel" class="card hidden">
+    <h2 id="memberTitle"></h2>
+    <div id="history"></div>
+    <hr>
+    <h3>➕ Add Payment</h3>
+    <form id="paymentForm" enctype="multipart/form-data">
+      <input type="hidden" name="member_id" id="memberId">
+      <label>Amount</label><input name="amount" type="number" min="1" step="0.01" required>
+      <label>Date</label><input name="payment_date" type="date" required>
+      <label>Time</label><input name="payment_time" type="time" required>
+      <label>Payment Method</label>
+      <select name="payment_method" id="method" required>
+        <option value="Online">Online</option>
+        <option value="Cash">Cash</option>
+      </select>
+      <div id="onlineFields">
+        <label>UPI Transaction ID</label><input name="transaction_id">
+        <label>Google Transaction ID</label><input name="google_transaction_id">
+        <label>Sender Name</label><input name="sender_name">
+        <label>Sender UPI</label><input name="sender_upi">
+        <label>Receiver Name</label><input name="receiver_name" value="RANJITHKUMAR VELLAIYAN">
+        <label>Receiver UPI</label><input name="receiver_upi">
+        <label>Bank</label><input name="bank_name">
+        <label>Payment Screenshot (JPG/PNG/WEBP, max 5MB)</label>
+        <input name="screenshot" type="file" accept="image/jpeg,image/png,image/webp">
+      </div>
+      <button>Save Payment</button>
+    </form>
+    <p id="status"></p>
+  </section>
+</main>
+<script>
+let selectedMember = null;
+
+async function check() {
+  const r = await fetch("/api/admin/me");
+  const d = await r.json();
+  if (!d.loggedIn) location.href="/login.html";
+  loadMembers();
+}
+async function loadMembers() {
+  const r = await fetch("/api/admin/members");
+  const data = await r.json();
+  members.innerHTML = data.map(m => `
+    <button class="memberBtn" onclick="selectMember(${m.id}, '${esc(m.name)}')">
+      ${esc(m.name)} <small>₹${Number(m.total_paid).toFixed(0)}</small>
+    </button>`).join("");
+}
+function esc(s){return String(s).replace(/'/g,"&#39;").replace(/</g,"&lt;");}
+
+async function selectMember(id,name) {
+  selectedMember=id;
+  memberId.value=id;
+  memberTitle.textContent=name;
+  panel.classList.remove("hidden");
+  const r=await fetch(`/api/admin/members/${id}/payments`);
+  const data=await r.json();
+  history.innerHTML = data.length ? data.map(p => `
+    <div class="historyItem">
+      <b>${p.payment_date} ${p.payment_time}</b> — ₹${p.amount} — ${p.payment_method}
+      ${p.screenshot_path ? `<a target="_blank" href="${p.screenshot_path}">📷 Screenshot</a>` : ""}
+      <span>Bill: ${p.bill_no}</span>
+      <button class="danger small" onclick="deletePayment(${p.id})">Delete</button>
+    </div>`).join("") : "<p>No payments yet.</p>";
+  window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
+}
+method.onchange=()=>onlineFields.style.display=method.value==="Online"?"block":"none";
+
+paymentForm.onsubmit=async e=>{
+  e.preventDefault();
+  const r=await fetch("/api/admin/payments",{method:"POST",body:new FormData(paymentForm)});
+  const d=await r.json();
+  status.textContent=r.ok ? `Saved: ${d.bill_no}` : (d.error||"Failed");
+  if(r.ok){ paymentForm.reset(); memberId.value=selectedMember; method.value="Online"; onlineFields.style.display="block"; selectMember(selectedMember,memberTitle.textContent); loadMembers(); }
+};
+
+async function deletePayment(id){
+  if(!confirm("இந்த payment-ஐ delete செய்யவா?")) return;
+  const r=await fetch(`/api/admin/payments/${id}`,{method:"DELETE"});
+  if(r.ok) selectMember(selectedMember,memberTitle.textContent);
+}
+async function logout(){await fetch("/api/admin/logout",{method:"POST"});location.href="/login.html";}
+check();
+</script>
+</body>
+</html>
